@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
 
+#Instance of the app
+app = FastAPI()
 # Add CORS middleware to allow all origins
 app.add_middleware(
     CORSMiddleware,
@@ -12,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-
+#old webhook
 @app.post("/webhook")
 def webhook(uid: str, transcript: dict):
     print(transcript)
@@ -25,6 +26,13 @@ def webhook(uid: str, transcript: dict):
     # example: if the word "tired" is mentioned, return a message notifying the user to take a break
 
     # TODO: Write your code below this line
+
+#new webhook
+@app.post('/livetranscript')
+def webhook(memory: dict, uid: str):
+    print(memory)
+    print(uid)
+    return {"message": "we got it"}
 
 
 if __name__ == "__main__":
